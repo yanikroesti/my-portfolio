@@ -2,8 +2,18 @@ import FadeIn from '../components/FadeIn';
 import Magnet from '../components/Magnet';
 import ContactButton from '../components/ContactButton';
 
-const PORTRAIT_URL =
-  'https://shrug-person-78902957.figma.site/_components/v2/d24c01ad3a56fc65e942a1f501eb73db42d7cf9a/Rectangle_40443.81459862.png';
+const PORTRAIT_URL = '/portrait.webp';
+
+// fades the crop's edges into the page background so the rectangular
+// image blends invisibly into #0C0C0C
+const portraitMask = {
+  maskImage:
+    'linear-gradient(to right, transparent, black 11%, black 89%, transparent), linear-gradient(to bottom, transparent, black 6%, black 95%, transparent)',
+  maskComposite: 'intersect',
+  WebkitMaskImage:
+    'linear-gradient(to right, transparent, black 11%, black 89%, transparent), linear-gradient(to bottom, transparent, black 6%, black 95%, transparent)',
+  WebkitMaskComposite: 'source-in',
+} as const;
 
 const NAV_LINKS = [
   { label: 'About', href: '#about' },
@@ -56,6 +66,7 @@ export default function HeroSection() {
               src={PORTRAIT_URL}
               alt="3D portrait of Yanik"
               className="w-full select-none"
+              style={portraitMask}
               draggable={false}
             />
           </Magnet>
