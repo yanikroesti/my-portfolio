@@ -9,13 +9,16 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = join(root, 'assets-src', 'portrait-source.png');
 const OUT = join(root, 'public', 'portrait.webp');
 
-const THRESHOLD = 38; // luminance above which a pixel counts as "head, not backdrop"
 const DETECT_W = 440;
 
 const meta = await sharp(SRC).metadata();
-const { data, info } = await sharp(SRC)
-  .resize({ width: DETECT_W })
-  .grayscale()
+// transparent source: bbox from the alpha channel; opaque source: from luminance
+const THRESHOLD = meta.hasAlpha ? 10 : 38;
+const detector = sharp(SRC).resize({ width: DETECT_W });
+const { data, info } = await (meta.hasAlpha
+  ? detector.extractChannel('alpha')
+  : detector.grayscale()
+)
   .raw()
   .toBuffer({ resolveWithObject: true });
 
@@ -40,10 +43,11 @@ const bbox = {
   h: (maxY - minY + 1) * scale,
 };
 
-// generous side padding so the CSS edge-fade mask never touches the head
-const padX = bbox.w * 0.2;
-const padTop = bbox.h * 0.09;
-const padBottom = bbox.h * 0.07;
+// transparent source needs no fade margin — crop tight like the template head;
+// opaque source keeps generous padding so a CSS edge-fade mask never touches the head
+const padX = bbox.w * (meta.hasAlpha ? 0.04 : 0.2);
+const padTop = bbox.h * (meta.hasAlpha ? 0.03 : 0.09);
+const padBottom = bbox.h * (meta.hasAlpha ? 0.02 : 0.07);
 
 const left = Math.max(0, Math.round(bbox.x - padX));
 const top = Math.max(0, Math.round(bbox.y - padTop));
