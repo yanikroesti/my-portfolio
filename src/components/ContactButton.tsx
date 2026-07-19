@@ -12,7 +12,7 @@ export default function ContactButton() {
         outlineOffset: '-3px',
       }}
     >
-      Contact Me
+      Schreib mir
     </a>
   );
 }

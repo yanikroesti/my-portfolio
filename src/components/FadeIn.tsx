@@ -12,6 +12,8 @@ interface FadeInProps {
   as?: ElementType;
   className?: string;
   style?: CSSProperties;
+  /** animate on mount instead of on scroll — for elements visible on first paint (hero) */
+  immediate?: boolean;
 }
 
 export default function FadeIn({
@@ -23,17 +25,21 @@ export default function FadeIn({
   as = 'div',
   className,
   style,
+  immediate = false,
 }: FadeInProps) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const Component = useMemo(() => motion.create(as as any), [as]) as typeof motion.div;
+
+  const target = { opacity: 1, x: 0, y: 0 };
 
   return (
     <Component
       className={className}
       style={style}
       initial={{ opacity: 0, x, y }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: '50px', amount: 0 }}
+      {...(immediate
+        ? { animate: target }
+        : { whileInView: target, viewport: { once: true, margin: '50px', amount: 0 } })}
       transition={{ delay, duration, ease: EASE }}
     >
       {children}

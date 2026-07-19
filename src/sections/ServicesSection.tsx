@@ -3,28 +3,28 @@ import FadeIn from '../components/FadeIn';
 const SERVICES = [
   {
     num: '01',
-    name: 'Web Design',
-    desc: 'Clean, modern one-pagers and full websites for local businesses, designed to look premium and turn visitors into customers.',
+    name: 'Webdesign',
+    desc: 'Klare, moderne One-Pager und komplette Websites für lokale Betriebe — hochwertig gestaltet, damit aus Besuchern Kunden werden.',
   },
   {
     num: '02',
     name: 'Redesigns',
-    desc: 'Complete rebuilds of outdated sites into fast, animated, modern experiences that make brands look their absolute best.',
+    desc: 'Komplette Neuauflagen veralteter Websites: schnell, animiert und modern — damit sich deine Marke von ihrer besten Seite zeigt.',
   },
   {
     num: '03',
     name: 'Landing Pages',
-    desc: 'High-impact pages with scroll animations and clear calls to action, built to turn attention into real inquiries.',
+    desc: 'Wirkungsvolle Seiten mit Scroll-Animationen und klaren Handlungsaufforderungen — gebaut, um aus Aufmerksamkeit echte Anfragen zu machen.',
   },
   {
     num: '04',
     name: 'Bots & Automation',
-    desc: 'Custom Telegram bots and small tools that automate learning, bookings, and everyday workflows for you and your team.',
+    desc: 'Massgeschneiderte Telegram-Bots und kleine Tools, die Buchungen, Lernen und Alltagsabläufe automatisieren — für dich und dein Team.',
   },
   {
     num: '05',
-    name: 'Hosting & Care',
-    desc: 'Deployment, hosting, and ongoing updates, so your website stays fast, secure, and always up to date.',
+    name: 'Hosting & Pflege',
+    desc: 'Aufschaltung, Hosting und laufende Updates — damit deine Website schnell, sicher und immer aktuell bleibt.',
   },
 ];
 
@@ -40,7 +40,7 @@ export default function ServicesSection() {
         className="mb-16 text-center font-black uppercase leading-none tracking-tight text-[#0C0C0C] sm:mb-20 md:mb-28"
         style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
       >
-        Services
+        Leistungen
       </FadeIn>
 
       <div className="mx-auto max-w-5xl divide-y divide-[#0C0C0C]/15">

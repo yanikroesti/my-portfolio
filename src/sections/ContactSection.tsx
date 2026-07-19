@@ -6,18 +6,18 @@ const EMAIL = 'yanikroesti@proton.me';
 const BUSINESS_TYPES = [
   'Beauty & Wellness',
   'Restaurant / Café',
-  'Trades / Handwerk',
-  'Retail / Shop',
-  'Health / Practice',
-  'Other',
+  'Handwerk',
+  'Laden / Shop',
+  'Praxis / Gesundheit',
+  'Anderes',
 ];
 
 const NEEDS = [
-  'New website',
-  'Redesign of my current site',
-  'Landing page',
-  'Bot / automation',
-  'Not sure yet',
+  'Neue Website',
+  'Redesign meiner Website',
+  'Landing Page',
+  'Bot / Automatisierung',
+  'Noch unsicher',
 ];
 
 const inputClasses =
@@ -31,11 +31,11 @@ export default function ContactSection() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const subject = `Website inquiry${business ? ` — ${business}` : ''}${name ? ` (${name})` : ''}`;
+    const subject = `Website-Anfrage${business ? ` — ${business}` : ''}${name ? ` (${name})` : ''}`;
     const body = [
       name && `Name: ${name}`,
-      business && `Business: ${business}`,
-      need && `Looking for: ${need}`,
+      business && `Betrieb: ${business}`,
+      need && `Gesucht: ${need}`,
       message && `\n${message}`,
     ]
       .filter(Boolean)
@@ -54,7 +54,7 @@ export default function ContactSection() {
         className="hero-heading text-center font-black uppercase leading-none tracking-tight"
         style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
       >
-        Contact
+        Kontakt
       </FadeIn>
 
       <FadeIn delay={0.1} y={20}>
@@ -62,8 +62,8 @@ export default function ContactSection() {
           className="mx-auto mt-6 max-w-[520px] text-center font-light leading-relaxed text-[#D7E2EA] opacity-80"
           style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.25rem)' }}
         >
-          Tell me what you&rsquo;re building and I&rsquo;ll get back to you with ideas
-          and a clear price — usually within 2 days.
+          Erzähl mir, was du vorhast — ich melde mich mit Ideen und einem klaren
+          Preis. In der Regel innert 2 Tagen.
         </p>
       </FadeIn>
 
@@ -76,7 +76,7 @@ export default function ContactSection() {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Your name"
+            placeholder="Dein Name"
             autoComplete="name"
             className={inputClasses}
           />
@@ -88,7 +88,7 @@ export default function ContactSection() {
               className={`${inputClasses} appearance-none ${business ? '' : 'text-[#D7E2EA]/35'}`}
             >
               <option value="" disabled className="bg-[#0C0C0C] text-[#D7E2EA]">
-                Type of business…
+                Art des Betriebs…
               </option>
               {BUSINESS_TYPES.map((t) => (
                 <option key={t} value={t} className="bg-[#0C0C0C] text-[#D7E2EA]">
@@ -103,7 +103,7 @@ export default function ContactSection() {
               className={`${inputClasses} appearance-none ${need ? '' : 'text-[#D7E2EA]/35'}`}
             >
               <option value="" disabled className="bg-[#0C0C0C] text-[#D7E2EA]">
-                What do you need…
+                Was brauchst du…
               </option>
               {NEEDS.map((n) => (
                 <option key={n} value={n} className="bg-[#0C0C0C] text-[#D7E2EA]">
@@ -116,7 +116,7 @@ export default function ContactSection() {
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Anything else — goals, deadline, links to your current site…"
+            placeholder="Sonst noch etwas — Ziele, Termin, Link zu deiner aktuellen Website…"
             rows={5}
             className={`${inputClasses} resize-none`}
           />
@@ -133,14 +133,14 @@ export default function ContactSection() {
               outlineOffset: '-3px',
             }}
           >
-            Send Inquiry
+            Anfrage senden
           </button>
         </form>
       </FadeIn>
 
       <FadeIn delay={0.25} y={20}>
         <p className="mt-10 text-center font-light uppercase tracking-wider text-[#D7E2EA] opacity-60 sm:mt-12">
-          or write me directly —{' '}
+          oder schreib mir direkt —{' '}
           <a
             href={`mailto:${EMAIL}`}
             className="underline underline-offset-4 transition-opacity duration-200 hover:opacity-70"
@@ -151,7 +151,7 @@ export default function ContactSection() {
       </FadeIn>
 
       <p className="mt-20 text-center text-xs font-light uppercase tracking-widest text-[#D7E2EA] opacity-40 sm:mt-24">
-        © 2026 Yanik — designed &amp; built by me
+        © 2026 Yanik — selbst gestaltet &amp; gebaut
       </p>
     </section>
   );

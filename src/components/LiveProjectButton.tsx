@@ -9,14 +9,14 @@ export default function LiveProjectButton({ url }: LiveProjectButtonProps) {
   if (url) {
     return (
       <a href={url} target="_blank" rel="noopener noreferrer" className={className}>
-        Live Project
+        Zur Website
       </a>
     );
   }
 
   return (
     <span className={`${className} cursor-default opacity-40 hover:bg-transparent`}>
-      Coming Soon
+      Bald online
     </span>
   );
 }

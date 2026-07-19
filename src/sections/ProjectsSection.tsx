@@ -15,7 +15,7 @@ const PROJECTS: Project[] = [
   {
     num: '01',
     name: 'Beauty & Co',
-    category: 'Client',
+    category: 'Kundenprojekt',
     images: [
       '/projects/beauty-1.jpg',
       '/projects/beauty-2.jpg',
@@ -25,7 +25,7 @@ const PROJECTS: Project[] = [
   {
     num: '02',
     name: 'Swiss VitalCare',
-    category: 'Client',
+    category: 'Kundenprojekt',
     images: [
       '/projects/vitalcare-1.jpg',
       '/projects/vitalcare-2.jpg',
@@ -35,7 +35,7 @@ const PROJECTS: Project[] = [
   {
     num: '03',
     name: 'Cham Cafe',
-    category: 'Personal',
+    category: 'Eigenprojekt',
     images: [
       '/projects/cham-1.jpg',
       '/projects/cham-2.jpg',
@@ -89,14 +89,14 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
           <div className="flex w-[40%] flex-col gap-3 sm:gap-4">
             <img
               src={project.images[0]}
-              alt={`${project.name} preview 1`}
+              alt={`${project.name} Vorschau 1`}
               loading="lazy"
               className={`w-full object-cover ${radius}`}
               style={{ height: 'clamp(130px, 16vw, 230px)' }}
             />
             <img
               src={project.images[1]}
-              alt={`${project.name} preview 2`}
+              alt={`${project.name} Vorschau 2`}
               loading="lazy"
               className={`w-full object-cover ${radius}`}
               style={{ height: 'clamp(160px, 22vw, 340px)' }}
@@ -105,7 +105,7 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
           <div className="w-[60%]">
             <img
               src={project.images[2]}
-              alt={`${project.name} preview 3`}
+              alt={`${project.name} Vorschau 3`}
               loading="lazy"
               className={`h-full w-full object-cover ${radius}`}
             />
@@ -134,7 +134,7 @@ export default function ProjectsSection() {
         className="hero-heading mb-16 text-center font-black uppercase leading-none tracking-tight sm:mb-20 md:mb-28"
         style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
       >
-        Project
+        Projekte
       </FadeIn>
 
       <div ref={containerRef} className="mx-auto max-w-6xl">
