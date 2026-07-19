@@ -15,7 +15,7 @@ const PROJECTS: Project[] = [
   {
     num: '01',
     name: 'Beauty & Co',
-    category: 'Kundenprojekt',
+    category: 'Beispielprojekt',
     images: [
       '/projects/beauty-1.jpg',
       '/projects/beauty-2.jpg',
@@ -25,12 +25,13 @@ const PROJECTS: Project[] = [
   {
     num: '02',
     name: 'Swiss VitalCare',
-    category: 'Kundenprojekt',
+    category: 'Beispielprojekt',
     images: [
       '/projects/vitalcare-1.jpg',
       '/projects/vitalcare-2.jpg',
       '/projects/vitalcare-3.jpg',
     ],
+    url: 'https://swiss-vitalcare.com',
   },
   {
     num: '03',
@@ -41,6 +42,7 @@ const PROJECTS: Project[] = [
       '/projects/cham-2.jpg',
       '/projects/cham-3.jpg',
     ],
+    url: 'https://cafe.swisslock.net',
   },
 ];
 
@@ -102,12 +104,12 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
               style={{ height: 'clamp(160px, 22vw, 340px)' }}
             />
           </div>
-          <div className="w-[60%]">
+          <div className="relative w-[60%]">
             <img
               src={project.images[2]}
               alt={`${project.name} Vorschau 3`}
               loading="lazy"
-              className={`h-full w-full object-cover ${radius}`}
+              className={`absolute inset-0 h-full w-full object-cover object-top ${radius}`}
             />
           </div>
         </div>

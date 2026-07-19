@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import FadeIn from '../components/FadeIn';
+import LegalLinks from '../components/Legal';
 
 const EMAIL = 'yanikroesti@proton.me';
 
@@ -21,7 +22,7 @@ const NEEDS = [
 ];
 
 const inputClasses =
-  'w-full rounded-2xl border-2 border-[#D7E2EA]/20 bg-transparent px-5 py-3.5 font-light text-[#D7E2EA] outline-none transition-colors duration-200 placeholder:text-[#D7E2EA]/35 focus:border-[#D7E2EA]/60 sm:px-6 sm:py-4';
+  'w-full rounded-2xl border-2 border-[#D7E2EA]/20 bg-transparent px-6 py-4 text-base font-light text-[#D7E2EA] outline-none transition-colors duration-200 placeholder:text-[#D7E2EA]/35 focus:border-[#D7E2EA]/60 sm:px-7 sm:py-5 sm:text-lg';
 
 export default function ContactSection() {
   const [name, setName] = useState('');
@@ -59,8 +60,8 @@ export default function ContactSection() {
 
       <FadeIn delay={0.1} y={20}>
         <p
-          className="mx-auto mt-6 max-w-[520px] text-center font-light leading-relaxed text-[#D7E2EA] opacity-80"
-          style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.25rem)' }}
+          className="mx-auto mt-8 max-w-[640px] text-center font-light leading-relaxed text-[#D7E2EA] opacity-80"
+          style={{ fontSize: 'clamp(1.05rem, 2vw, 1.45rem)' }}
         >
           Erzähl mir, was du vorhast — ich melde mich mit Ideen und einem klaren
           Preis. In der Regel innert 2 Tagen.
@@ -70,7 +71,7 @@ export default function ContactSection() {
       <FadeIn delay={0.2} y={30}>
         <form
           onSubmit={handleSubmit}
-          className="mx-auto mt-12 flex max-w-2xl flex-col gap-4 sm:mt-16 sm:gap-5"
+          className="mx-auto mt-14 flex max-w-3xl flex-col gap-5 sm:mt-20 sm:gap-6"
         >
           <input
             type="text"
@@ -81,7 +82,7 @@ export default function ContactSection() {
             className={inputClasses}
           />
 
-          <div className="flex flex-col gap-4 sm:flex-row sm:gap-5">
+          <div className="flex flex-col gap-5 sm:flex-row sm:gap-6">
             <select
               value={business}
               onChange={(e) => setBusiness(e.target.value)}
@@ -117,13 +118,13 @@ export default function ContactSection() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Sonst noch etwas — Ziele, Termin, Link zu deiner aktuellen Website…"
-            rows={5}
+            rows={7}
             className={`${inputClasses} resize-none`}
           />
 
           <button
             type="submit"
-            className="mt-2 inline-block self-center whitespace-nowrap rounded-full px-10 py-3.5 text-xs font-medium uppercase tracking-widest text-white sm:px-12 sm:py-4 sm:text-sm md:text-base"
+            className="mt-3 inline-block self-center whitespace-nowrap rounded-full px-12 py-4 text-sm font-medium uppercase tracking-widest text-white sm:px-14 sm:py-5 sm:text-base md:text-lg"
             style={{
               background:
                 'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
@@ -150,7 +151,9 @@ export default function ContactSection() {
         </p>
       </FadeIn>
 
-      <p className="mt-20 text-center text-xs font-light uppercase tracking-widest text-[#D7E2EA] opacity-40 sm:mt-24">
+      <LegalLinks />
+
+      <p className="mt-6 text-center text-xs font-light uppercase tracking-widest text-[#D7E2EA] opacity-40">
         © 2026 Yanik — selbst gestaltet &amp; gebaut
       </p>
     </section>
