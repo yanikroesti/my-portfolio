@@ -13,9 +13,9 @@ function Impressum() {
         <br />
         <span className="font-medium">Yanik Rösti</span>
         <br />
-        [Strasse und Hausnummer]
+        Aarestrasse 31
         <br />
-        [PLZ] Thun, Schweiz
+        3637 Heimberg, Schweiz
         <br />
         E-Mail:{' '}
         <a href={`mailto:${EMAIL}`} className="underline underline-offset-4">
@@ -52,7 +52,7 @@ function Datenschutz() {
 
       <h4 className="mt-8 text-lg font-medium uppercase tracking-wide">Verantwortlicher</h4>
       <p className="mt-3 font-light leading-relaxed opacity-80">
-        Yanik Rösti, Thun (Schweiz) — E-Mail:{' '}
+        Yanik Rösti, Aarestrasse 31, 3637 Heimberg (Schweiz) — E-Mail:{' '}
         <a href={`mailto:${EMAIL}`} className="underline underline-offset-4">
           {EMAIL}
         </a>
