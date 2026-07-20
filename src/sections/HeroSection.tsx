@@ -53,10 +53,12 @@ export default function HeroSection() {
             activeTransition="transform 0.3s ease-out"
             inactiveTransition="transform 0.6s ease-in-out"
           >
+            {/* max-h verhindert, dass der Kopf auf flachen Viewports
+                (z.B. 1366x768) in die Headline hineinwächst */}
             <img
               src={PORTRAIT_URL}
               alt="3D-Porträt von Yanik"
-              className="w-full select-none"
+              className="max-h-[65vh] w-full select-none object-contain object-bottom"
               draggable={false}
             />
           </Magnet>
