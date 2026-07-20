@@ -24,15 +24,23 @@ const NEEDS = [
 const inputClasses =
   'w-full rounded-2xl border-2 border-[#D7E2EA]/20 bg-transparent px-6 py-4 text-base font-light text-[#D7E2EA] outline-none transition-colors duration-200 placeholder:text-[#D7E2EA]/35 focus:border-[#D7E2EA]/60 sm:px-7 sm:py-5 sm:text-lg';
 
+type Status = 'idle' | 'sending' | 'success' | 'error';
+
+// Web3Forms leitet Formular-Anfragen direkt an die hinterlegte E-Mail weiter.
+// Key holen: https://web3forms.com (E-Mail eingeben, Key kommt per Mail).
+// Solange der Platzhalter drin ist, öffnet der Button stattdessen das Mail-Programm.
+const WEB3FORMS_ACCESS_KEY = 'HIER_ACCESS_KEY_EINSETZEN';
+
 export default function ContactSection() {
   const [name, setName] = useState('');
   const [business, setBusiness] = useState('');
   const [need, setNeed] = useState('');
   const [message, setMessage] = useState('');
+  const [status, setStatus] = useState<Status>('idle');
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    const subject = `Website-Anfrage${business ? ` — ${business}` : ''}${name ? ` (${name})` : ''}`;
+  const subject = `Website-Anfrage${business ? ` — ${business}` : ''}${name ? ` (${name})` : ''}`;
+
+  const mailtoFallback = () => {
     const body = [
       name && `Name: ${name}`,
       business && `Betrieb: ${business}`,
@@ -42,6 +50,38 @@ export default function ContactSection() {
       .filter(Boolean)
       .join('\n');
     window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (status === 'sending') return;
+    if (WEB3FORMS_ACCESS_KEY.startsWith('HIER_')) {
+      mailtoFallback();
+      return;
+    }
+    const botcheck = (new FormData(e.currentTarget).get('botcheck') as string) || '';
+    if (botcheck) return; // Honeypot: von Bots ausgefüllt, still verwerfen
+    setStatus('sending');
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject,
+          from_name: 'Portfolio Kontaktformular',
+          name,
+          betrieb: business,
+          gesucht: need,
+          nachricht: message,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json.message || `HTTP ${res.status}`);
+      setStatus('success');
+    } catch {
+      setStatus('error');
+    }
   };
 
   return (
@@ -69,21 +109,46 @@ export default function ContactSection() {
       </FadeIn>
 
       <FadeIn delay={0.2} y={30}>
+        {status === 'success' ? (
+          <div className="mx-auto mt-14 max-w-3xl rounded-[30px] border-2 border-[#D7E2EA]/30 px-8 py-14 text-center sm:mt-20 sm:py-16">
+            <p
+              className="font-medium uppercase tracking-wide text-[#D7E2EA]"
+              style={{ fontSize: 'clamp(1.3rem, 2.6vw, 2rem)' }}
+            >
+              Merci, {name.trim() || 'danke'}!
+            </p>
+            <p className="mx-auto mt-4 max-w-[480px] font-light leading-relaxed text-[#D7E2EA] opacity-70 sm:text-lg">
+              Deine Anfrage ist unterwegs. Ich melde mich in der Regel innert 2
+              Tagen bei dir.
+            </p>
+          </div>
+        ) : (
         <form
+          name="kontakt"
           onSubmit={handleSubmit}
           className="mx-auto mt-14 flex max-w-3xl flex-col gap-5 sm:mt-20 sm:gap-6"
         >
           <input
+            type="checkbox"
+            name="botcheck"
+            tabIndex={-1}
+            aria-hidden="true"
+            className="hidden"
+          />
+          <input
             type="text"
+            name="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Dein Name"
             autoComplete="name"
+            required
             className={inputClasses}
           />
 
           <div className="flex flex-col gap-5 sm:flex-row sm:gap-6">
             <select
+              name="betrieb"
               value={business}
               onChange={(e) => setBusiness(e.target.value)}
               className={`${inputClasses} appearance-none ${business ? '' : 'text-[#D7E2EA]/35'}`}
@@ -99,6 +164,7 @@ export default function ContactSection() {
             </select>
 
             <select
+              name="gesucht"
               value={need}
               onChange={(e) => setNeed(e.target.value)}
               className={`${inputClasses} appearance-none ${need ? '' : 'text-[#D7E2EA]/35'}`}
@@ -115,6 +181,7 @@ export default function ContactSection() {
           </div>
 
           <textarea
+            name="nachricht"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Sonst noch etwas — Ziele, Termin, Link zu deiner aktuellen Website…"
@@ -124,7 +191,8 @@ export default function ContactSection() {
 
           <button
             type="submit"
-            className="mt-3 inline-block self-center whitespace-nowrap rounded-full px-12 py-4 text-sm font-medium uppercase tracking-widest text-white sm:px-14 sm:py-5 sm:text-base md:text-lg"
+            disabled={status === 'sending'}
+            className="mt-3 inline-block self-center whitespace-nowrap rounded-full px-12 py-4 text-sm font-medium uppercase tracking-widest text-white transition-opacity duration-200 disabled:opacity-60 sm:px-14 sm:py-5 sm:text-base md:text-lg"
             style={{
               background:
                 'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
@@ -134,9 +202,20 @@ export default function ContactSection() {
               outlineOffset: '-3px',
             }}
           >
-            Anfrage senden
+            {status === 'sending' ? 'Wird gesendet…' : 'Anfrage senden'}
           </button>
+
+          {status === 'error' && (
+            <p role="alert" className="text-center font-light leading-relaxed text-[#D7E2EA] opacity-80">
+              Das Senden hat leider nicht geklappt. Schreib mir direkt an{' '}
+              <a href={`mailto:${EMAIL}`} className="underline underline-offset-4">
+                {EMAIL}
+              </a>{' '}
+              — deine Angaben bleiben im Formular erhalten.
+            </p>
+          )}
         </form>
+        )}
       </FadeIn>
 
       <FadeIn delay={0.25} y={20}>

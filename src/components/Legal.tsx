@@ -60,7 +60,7 @@ function Datenschutz() {
 
       <h4 className="mt-8 text-lg font-medium uppercase tracking-wide">Hosting &amp; Server-Logs</h4>
       <p className="mt-3 font-light leading-relaxed opacity-80">
-        Diese Website wird bei Netlify (Netlify Inc., USA) gehostet. Beim Aufruf werden
+        Diese Website wird bei Vercel (Vercel Inc., USA) gehostet. Beim Aufruf werden
         automatisch technisch notwendige Daten verarbeitet (IP-Adresse, Datum und
         Uhrzeit, Browser-Informationen). Diese Daten dienen ausschliesslich dem sicheren
         und stabilen Betrieb der Website.
@@ -76,9 +76,11 @@ function Datenschutz() {
 
       <h4 className="mt-8 text-lg font-medium uppercase tracking-wide">Kontaktaufnahme</h4>
       <p className="mt-3 font-light leading-relaxed opacity-80">
-        Das Kontaktformular öffnet Ihr E-Mail-Programm; die Angaben werden direkt per
-        E-Mail an mich übermittelt und nur zur Bearbeitung Ihrer Anfrage verwendet. Es
-        erfolgt keine Weitergabe an Dritte.
+        Wenn Sie das Kontaktformular nutzen, werden die angegebenen Daten (Name,
+        Angaben zum Betrieb, Nachricht) über den Formular-Dienst Web3Forms verarbeitet
+        und per E-Mail an mich weitergeleitet. Die Daten werden ausschliesslich zur
+        Bearbeitung Ihrer Anfrage verwendet und nicht zu Werbezwecken an Dritte
+        weitergegeben. Alternativ können Sie mir jederzeit direkt per E-Mail schreiben.
       </p>
 
       <h4 className="mt-8 text-lg font-medium uppercase tracking-wide">Cookies &amp; Tracking</h4>
