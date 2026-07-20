@@ -36,12 +36,22 @@ try {
       return req.abort();
     }
     if (url.includes('api.web3forms.com')) {
+      // Die echte API erlaubt Cross-Origin-Submits; der Mock muss die
+      // CORS-Header nachbilden, sonst blockt der Browser den Preflight.
+      const cors = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Accept',
+      };
+      if (req.method() === 'OPTIONS') {
+        return req.respond({ status: 204, headers: cors, body: '' });
+      }
       seen.web3forms = true;
       if (scenario === 'success') {
-        return req.respond({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, message: 'ok' }) });
+        return req.respond({ status: 200, headers: cors, contentType: 'application/json', body: JSON.stringify({ success: true, message: 'ok' }) });
       }
       if (scenario === 'error') {
-        return req.respond({ status: 400, contentType: 'application/json', body: JSON.stringify({ success: false, message: 'bad key' }) });
+        return req.respond({ status: 400, headers: cors, contentType: 'application/json', body: JSON.stringify({ success: false, message: 'bad key' }) });
       }
     }
     return req.continue();

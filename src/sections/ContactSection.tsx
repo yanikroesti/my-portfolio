@@ -29,7 +29,7 @@ type Status = 'idle' | 'sending' | 'success' | 'error';
 // Web3Forms leitet Formular-Anfragen direkt an die hinterlegte E-Mail weiter.
 // Key holen: https://web3forms.com (E-Mail eingeben, Key kommt per Mail).
 // Solange der Platzhalter drin ist, öffnet der Button stattdessen das Mail-Programm.
-const WEB3FORMS_ACCESS_KEY = 'HIER_ACCESS_KEY_EINSETZEN';
+const WEB3FORMS_ACCESS_KEY = '7c6741f7-c71b-45ca-9376-2c576ee9548d';
 
 export default function ContactSection() {
   const [name, setName] = useState('');
